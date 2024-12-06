@@ -17,8 +17,9 @@ def game_loop(player, characters, weapons, mansion, solution):
         print("\n--- Actions ---")
         print("1. Move to another room")
         print("2. Make a suggestion")
-        print("3. View notebook")
-        print("4. End the game")
+        print("3. Make an accusation")
+        print("4. View notebook")
+        print("5. End the game")
         action = input("Choose an action (1/2/3/4): ")
 
         if action == "1":
