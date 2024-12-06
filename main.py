@@ -5,9 +5,9 @@ from players import Player
 from weapons import Weapon, assign_weapons_to_rooms
 from solution import select_solution
 from game_loop import game_loop
+from card_dealing import deal_cards 
 
 mansion = Mansion()
-
 characters = [
     Character("Miss Scarlett"),
     Character("Colonel Mustard"),
@@ -28,6 +28,9 @@ weapons = [Weapon(name) for name in ["Candlestick", "Revolver", "Rope", "Lead Pi
 assign_weapons_to_rooms(weapons, mansion.rooms)
 
 solution = select_solution(characters, weapons, mansion.rooms)
+
+all_players = [player] + characters
+deal_cards(characters, weapons, mansion.rooms, all_players)
 
 print("\nWelcome to the Cluedo Game!")
 print("Your objective is to solve the mystery of the murder.")

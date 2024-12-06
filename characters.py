@@ -4,6 +4,7 @@ class Character:
     def __init__(self, name, current_room=None):
         self.name = name
         self.current_room = current_room
+        self.cards = []
 
     def move_to_room(self, new_room):
         self.current_room = new_room
