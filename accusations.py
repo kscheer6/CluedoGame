@@ -1,6 +1,6 @@
 def make_accusation(player, solution):
     print("\n--- Make an Accusation ---")
-    print("If your accusation is correct, you win. If incorrect, you lose.")
+    print("If your accusation is correct, you win. If incorrect, the game is over and you lose.")
     confirm = input("Are you sure you want to make an accusation? (yes/no): ").strip().lower()
 
     if confirm != "yes":

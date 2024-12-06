@@ -20,7 +20,7 @@ def game_loop(player, characters, weapons, mansion, solution):
         print("3. Make an accusation")
         print("4. View notebook")
         print("5. End the game")
-        action = input("Choose an action (1/2/3/4): ")
+        action = input("Choose an action (1/2/3/4/5): ")
 
         if action == "1":
             new_room = input("Enter the room you want to move to: ")
@@ -41,9 +41,11 @@ def game_loop(player, characters, weapons, mansion, solution):
             result = make_accusation(player, solution)
             if result is True:
                 active = False
+                break
             elif result is False:
                 print("Game over.")
                 active = False
+                break
                         
         elif action == "4":
             player.show_notebook()
