@@ -2,6 +2,7 @@ import random
 from mansion import Mansion
 from characters import Character, assign_characters_to_rooms
 from players import Player
+from NPCs import NPC
 from weapons import Weapon, assign_weapons_to_rooms
 from solution import select_solution
 from game_loop import game_loop
@@ -21,6 +22,7 @@ assign_characters_to_rooms(characters, mansion.rooms)
 player_character = random.choice(characters)
 characters.remove(player_character)
 player = Player(player_character.name, player_character.current_room)
+npcs = [NPC(character.name, character.current_room) for character in characters]  
 
 print(f"You are playing as {player.name}, starting in the {player.current_room}.\n")
 
@@ -41,4 +43,4 @@ print(f"Murderer: {solution['Murderer']}")
 print(f"Weapon: {solution['Weapon']}")
 print(f"Room: {solution['Room']}")
 
-game_loop(player, all_players, weapons, mansion, solution)
+game_loop(player, npcs, characters, weapons, mansion, solution)

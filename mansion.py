@@ -20,7 +20,7 @@ class Mansion:
         die1 = random.randint(1, 6)
         die2 = random.randint(1, 6)
         total = die1 + die2
-        print(f"You rolled a {die1} and a {die2}. Total steps: {total}")
+        print(f"\nRolled a {die1} and a {die2}. Total steps: {total}")
         return total
 
     def calculate_distance(self, start, end):
@@ -28,7 +28,7 @@ class Mansion:
 
     def is_valid_move(self, start, end, steps):
         distance = self.calculate_distance(start, end)
-        return distance <= steps and (start[0] == end[0] or start[1] == end[1])  # No diagonal moves
+        return distance <= steps and (start[0] == end[0] or start[1] == end[1])
 
     def get_reachable_and_unreachable_rooms(self, current_coordinates, steps):
         reachable = []
