@@ -6,16 +6,25 @@ def game_loop(player, characters, weapons, mansion, solution):
     print(f"You are currently playing as {player.name}, starting in the {player.current_room}.")
 
     while True:
-        print(f"\nYou are currently in the {player.current_room}.")
-        print("Available rooms:", ", ".join(mansion.rooms[player.current_room]))
+        if player.current_room:
+            print(f"\nYou are currently in the {player.current_room}.")
+        else:
+            nearest_room, distance = min(
+                [(room, mansion.calculate_distance(player.current_coordinates, mansion.get_room_coordinates(room)))
+                 for room in mansion.rooms],
+                key=lambda x: x[1]
+            )
+            print(f"\nYou are not currently in a room and are {distance} steps from the nearest room, the {nearest_room}.")
         
+        #print(f"Available steps: {player.remaining_steps}")
+
         print("\n--- Your Cards ---")
         print(", ".join(player.cards))
         
         player.show_notebook()
 
         print("\n--- Actions ---")
-        print("1. Move to another room")
+        print("1. Roll dice and move")
         print("2. Make a suggestion")
         print("3. Make an accusation")
         print("4. View notebook")
@@ -23,8 +32,28 @@ def game_loop(player, characters, weapons, mansion, solution):
         action = input("Choose an action (1/2/3/4/5): ")
 
         if action == "1":
-            new_room = input("Enter the room you want to move to: ")
-            player.move(new_room, mansion)
+            player.roll_and_set_steps(mansion)
+            current_location = player.current_coordinates or mansion.get_room_coordinates(player.current_room)
+            reachable, unreachable = mansion.get_reachable_and_unreachable_rooms(current_location, player.remaining_steps)
+
+            print("\nYou can reach the following rooms:")
+            print(", ".join(reachable))
+
+            print("\nOr you can move towards the following rooms (with updated distance from you):")
+            for room, remaining_distance in unreachable:
+                print(f"{room}: {remaining_distance} steps away")
+
+            while True:
+                selected_room = input("\nEnter the room you want to move to(wards): ").strip().title()
+                if selected_room in reachable:
+                    player.move(selected_room, mansion)
+                    break
+                elif selected_room in [room for room, _ in unreachable]:
+                    player.move(selected_room, mansion)
+                    break
+                else:
+                    print("Invalid choice! Please select a valid room or direction.")
+
 
         elif action == "2":
             all_characters = characters + [player]
@@ -40,11 +69,9 @@ def game_loop(player, characters, weapons, mansion, solution):
         elif action == "3":
             result = make_accusation(player, solution)
             if result is True:
-                active = False
                 break
             elif result is False:
                 print("Game over.")
-                active = False
                 break
                         
         elif action == "4":
@@ -55,4 +82,4 @@ def game_loop(player, characters, weapons, mansion, solution):
             break
 
         else:
-            print("Invalid action. Please choose 1, 2, 3, or 4.")
+            print("Invalid action. Please choose a valid option.")

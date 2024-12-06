@@ -6,7 +6,6 @@ class Weapon:
         self.current_room = current_room
 
 def assign_weapons_to_rooms(weapons, mansion_rooms):
-    available_rooms = list(mansion_rooms.keys())
     for weapon in weapons:
-        weapon.current_room = random.choice(available_rooms)
+        weapon.current_room = random.choice(mansion_rooms)
         print(f"The {weapon.name} is placed in the {weapon.current_room}.")

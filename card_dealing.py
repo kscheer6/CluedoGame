@@ -15,7 +15,7 @@ def deal_cards(characters, weapons, mansion_rooms, players, solution):
     deck = list(chain(
         [character.name for character in characters],
         [weapon.name for weapon in weapons],
-        list(mansion_rooms.keys())
+        mansion_rooms
     ))
 
     # Exclude solution cards from the deck

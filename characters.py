@@ -12,7 +12,6 @@ class Character:
 
 
 def assign_characters_to_rooms(characters, mansion_rooms):
-    available_rooms = list(mansion_rooms.keys())
     for character in characters:
-        character.current_room = random.choice(available_rooms)
+        character.current_room = random.choice(mansion_rooms)
         print(f"{character.name} starts in the {character.current_room}.")
