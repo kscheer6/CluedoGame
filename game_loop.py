@@ -1,4 +1,4 @@
-from suggestions import make_suggestion
+from suggestions import make_suggestion, refute_suggestion
 
 def game_loop(player, characters, weapons, mansion, solution):
     print("\n--- Starting the Game ---")
@@ -11,8 +11,9 @@ def game_loop(player, characters, weapons, mansion, solution):
         print("\n--- Actions ---")
         print("1. Move to another room")
         print("2. Make a suggestion")
-        print("3. End the game")
-        action = input("Choose an action (1/2/3): ")
+        print("3. View notebook")
+        print("4. End the game")
+        action = input("Choose an action (1/2/3/4): ")
 
         if action == "1":
             new_room = input("Enter the room you want to move to: ")
@@ -24,19 +25,18 @@ def game_loop(player, characters, weapons, mansion, solution):
             suggestion = make_suggestion(player, all_characters, weapons)
 
             if suggestion:
-                print("\nChecking your suggestion...")
-                if (suggestion.character == solution["Murderer"] and
-                        suggestion.weapon == solution["Weapon"] and
-                        suggestion.room == solution["Room"]):
-                    print("\nCongratulations! You solved the mystery!")
-                    print(f"The murderer was {solution['Murderer']} with the {solution['Weapon']} in the {solution['Room']}.")
-                    break
+                refutation = refute_suggestion(player, suggestion, all_characters)
+                if refutation:
+                    player.add_to_notebook(f"Refutation: {refutation}")
                 else:
-                    print("\nYour suggestion is incorrect. Keep investigating!")
+                    player.add_to_notebook("No refutation for suggestion.")
 
         elif action == "3":
+            player.show_notebook()
+
+        elif action == "4":
             print("Thanks for playing! Goodbye.")
             break
 
         else:
-            print("Invalid action. Please choose 1, 2, or 3.")
+            print("Invalid action. Please choose 1, 2, 3, or 4.")
