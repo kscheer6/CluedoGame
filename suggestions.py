@@ -38,16 +38,16 @@ def refute_suggestion(player, suggestion, other_players):
             continue
 
         matching_cards = []
-        if suggestion.character in [character.name for character in other_player.cards]:
+        if suggestion.character in other_player.cards:
             matching_cards.append(suggestion.character)
-        if suggestion.weapon in [weapon.name for weapon in other_player.cards]:
+        if suggestion.weapon in other_player.cards:
             matching_cards.append(suggestion.weapon)
-        if suggestion.room == other_player.current_room:
+        if suggestion.room in other_player.cards:
             matching_cards.append(suggestion.room)
 
         if matching_cards:
             print(f"{other_player.name} can refute. They have {', '.join(matching_cards)}.")
-            revealed_card = random.choice(matching_cards)  
+            revealed_card = random.choice(matching_cards)
             print(f"{other_player.name} reveals: {revealed_card}")
             return revealed_card
 

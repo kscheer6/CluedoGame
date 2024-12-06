@@ -7,6 +7,12 @@ def game_loop(player, characters, weapons, mansion, solution):
     while True:
         print(f"\nYou are currently in the {player.current_room}.")
         print("Available rooms:", ", ".join(mansion.rooms[player.current_room]))
+        
+        print("\n--- Your Cards ---")
+        print(", ".join(player.cards))
+        
+        print("\n--- Your Notebook ---")
+        player.show_notebook()
 
         print("\n--- Actions ---")
         print("1. Move to another room")

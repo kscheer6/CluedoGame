@@ -27,10 +27,11 @@ print(f"You are playing as {player.name}, starting in the {player.current_room}.
 weapons = [Weapon(name) for name in ["Candlestick", "Revolver", "Rope", "Lead Pipe", "Knife", "Wrench"]]
 assign_weapons_to_rooms(weapons, mansion.rooms)
 
-solution = select_solution(characters, weapons, mansion.rooms)
-
 all_players = [player] + characters
-deal_cards(characters, weapons, mansion.rooms, all_players)
+
+solution = select_solution(all_players, weapons, mansion.rooms)
+
+deal_cards(all_players, weapons, mansion.rooms, all_players, solution)
 
 print("\nWelcome to the Cluedo Game!")
 print("Your objective is to solve the mystery of the murder.")
@@ -40,4 +41,4 @@ print(f"Murderer: {solution['Murderer']}")
 print(f"Weapon: {solution['Weapon']}")
 print(f"Room: {solution['Room']}")
 
-game_loop(player, characters, weapons, mansion, solution)
+game_loop(player, all_players, weapons, mansion, solution)
