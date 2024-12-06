@@ -17,6 +17,6 @@ class Player:
         print(f"Added to notebook: {entry}")
 
     def show_notebook(self):
-        print(f"\n--- {self.name}'s Notebook ---")
+        print("\n--- Your Notebook ---")
         for entry in self.notebook:
             print(entry)

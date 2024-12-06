@@ -11,7 +11,6 @@ def game_loop(player, characters, weapons, mansion, solution):
         print("\n--- Your Cards ---")
         print(", ".join(player.cards))
         
-        print("\n--- Your Notebook ---")
         player.show_notebook()
 
         print("\n--- Actions ---")
@@ -35,7 +34,7 @@ def game_loop(player, characters, weapons, mansion, solution):
                 if refutation:
                     player.add_to_notebook(f"Refutation: {refutation}")
                 else:
-                    player.add_to_notebook("No refutation for suggestion.")
+                    player.add_to_notebook(f"No refutation for suggestion ({suggestion.character}, {suggestion.weapon}, {suggestion.room}).")
 
         elif action == "3":
             player.show_notebook()
