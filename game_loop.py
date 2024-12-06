@@ -25,7 +25,7 @@ def game_loop(player, characters, weapons, mansion, solution):
             player.move(new_room, mansion)
 
         elif action == "2":
-            print("\n--- Make a Suggestion ---")
+            #print("\n--- Make a Suggestion ---")
             all_characters = characters + [player]
             suggestion = make_suggestion(player, all_characters, weapons)
 
