@@ -1,4 +1,5 @@
 from suggestions import make_suggestion, refute_suggestion
+from accusations import make_accusation
 
 def game_loop(player, characters, weapons, mansion, solution):
     print("\n--- Starting the Game ---")
@@ -25,7 +26,6 @@ def game_loop(player, characters, weapons, mansion, solution):
             player.move(new_room, mansion)
 
         elif action == "2":
-            #print("\n--- Make a Suggestion ---")
             all_characters = characters + [player]
             suggestion = make_suggestion(player, all_characters, weapons)
 
@@ -37,9 +37,17 @@ def game_loop(player, characters, weapons, mansion, solution):
                     player.add_to_notebook(f"No refutation for suggestion ({suggestion.character}, {suggestion.weapon}, {suggestion.room}).")
 
         elif action == "3":
+            result = make_accusation(player, solution)
+            if result is True:
+                active = False
+            elif result is False:
+                print("Game over.")
+                active = False
+                        
+        elif action == "4":
             player.show_notebook()
 
-        elif action == "4":
+        elif action == "5":
             print("Thanks for playing! Goodbye.")
             break
 
