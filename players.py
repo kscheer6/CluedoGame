@@ -37,7 +37,7 @@ class Player:
                 self.remaining_steps -= distance
                 self.current_room = new_room
                 self.current_coordinates = None
-                print(f"{self.name} moved to the {new_room}. Steps remaining: {self.remaining_steps}")
+                print(f"{self.name} moved to the {new_room}.")
             else:
                 print(f"{self.name} doesn't have enough steps to reach {new_room}. Moving toward it.")
                 self.move_toward_coordinates(start_coordinates, mansion.get_room_coordinates(new_room))

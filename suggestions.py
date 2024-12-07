@@ -31,12 +31,15 @@ def make_suggestion(player, characters, weapons):
     print("\nYour suggestion:", suggestion)
     return suggestion
 
-def refute_suggestion(player, suggestion, other_players):
+def refute_suggestion(suggester, suggestion, all_players):
     print(f"\n--- Refuting Suggestion: {suggestion} ---")
-    for other_player in other_players:
-        if other_player.name == player.name:
+
+    for other_player in all_players:
+        # Skip the suggester themselves
+        if other_player.name == suggester.name:
             continue
 
+        # Collect all matching cards
         matching_cards = []
         if suggestion.character in other_player.cards:
             matching_cards.append(suggestion.character)
@@ -45,11 +48,13 @@ def refute_suggestion(player, suggestion, other_players):
         if suggestion.room in other_player.cards:
             matching_cards.append(suggestion.room)
 
+        # If there are matching cards, reveal one and return it
         if matching_cards:
-            print(f"{other_player.name} can refute. They have {', '.join(matching_cards)}.")
             revealed_card = random.choice(matching_cards)
-            print(f"{other_player.name} reveals: {revealed_card}")
+            print(f"{other_player.name} can refute. They reveal: {revealed_card}")
             return revealed_card
 
+    # If no one can refute, return None
     print("No one can refute this suggestion.")
     return None
+

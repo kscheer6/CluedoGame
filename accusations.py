@@ -16,12 +16,10 @@ def make_accusation(player, solution):
         weapon = input("What weapon do you accuse was used? ").strip()
         room = player.current_room
 
-        # Confirm the accusation details before proceeding
         print(f"\nYou are accusing: {character} with the {weapon} in the {room}.")
         final_confirm = input("Are you sure you want to proceed with this accusation? (yes/no): ").strip().lower()
 
         if final_confirm == "yes":
-            # Check if the accusation is correct
             if character == solution["Murderer"] and weapon == solution["Weapon"] and room == solution["Room"]:
                 print("\nCongratulations! Your accusation is correct. You win!")
                 print(f"The solution was: {solution['Murderer']} with the {solution['Weapon']} in the {solution['Room']}.")

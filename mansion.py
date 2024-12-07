@@ -14,7 +14,7 @@ class Mansion:
             "Study": (8, 8),
             "Dining Room": (4, 8),
         }
-        self.rooms = list(self.grid.keys())  # List of room names
+        self.rooms = list(self.grid.keys())
 
     def roll_dice(self):
         die1 = random.randint(1, 6)
@@ -28,7 +28,7 @@ class Mansion:
 
     def is_valid_move(self, start, end, steps):
         distance = self.calculate_distance(start, end)
-        return distance <= steps and (start[0] == end[0] or start[1] == end[1])
+        return distance <= steps
 
     def get_reachable_and_unreachable_rooms(self, current_coordinates, steps):
         reachable = []
@@ -36,11 +36,11 @@ class Mansion:
 
         for room, coordinates in self.grid.items():
             distance = self.calculate_distance(current_coordinates, coordinates)
-            if self.is_valid_move(current_coordinates, coordinates, steps):
+            if distance <= steps:
                 reachable.append(room)
             else:
-                remaining_distance = max(0, distance - steps)
-                unreachable.append((room, distance - steps))
+                remaining_distance = abs(distance - steps)
+                unreachable.append((room, remaining_distance))
 
         return reachable, unreachable
     
