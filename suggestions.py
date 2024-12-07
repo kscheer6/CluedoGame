@@ -18,18 +18,31 @@ def make_suggestion(player, characters, weapons):
 
     print("\n--- Make a Suggestion ---")
     print(f"You're in the {player.current_room}.")
-    character_names = [character.name for character in characters]
-    weapon_names = [weapon.name for weapon in weapons]
+    character_names = [character.name.lower() for character in characters]
+    weapon_names = [weapon.name.lower() for weapon in weapons]
 
-    print(f"Characters: {', '.join(character_names)}")
-    suggested_character = input("Choose a character: ")
+    while True:
+        print(f"Characters: {', '.join([name.title() for name in character_names])}")
+        suggested_character = input("Choose a character: ").strip().lower()
+        if suggested_character in character_names:
+            suggested_character = [character.name for character in characters if character.name.lower() == suggested_character][0]
+            break
+        else:
+            print("Invalid character. Please choose a valid character from the list.")
 
-    print(f"Weapons: {', '.join(weapon_names)}")
-    suggested_weapon = input("Choose a weapon: ")
+    while True:
+        print(f"Weapons: {', '.join([name.title() for name in weapon_names])}")
+        suggested_weapon = input("Choose a weapon: ").strip().lower()
+        if suggested_weapon in weapon_names:
+            suggested_weapon = [weapon.name for weapon in weapons if weapon.name.lower() == suggested_weapon][0]
+            break
+        else:
+            print("Invalid weapon. Please choose a valid weapon from the list.")
 
     suggestion = Suggestion(player.name, suggested_character, suggested_weapon, player.current_room)
     print("\nYour suggestion:", suggestion)
     return suggestion
+
 
 def refute_suggestion(suggester, suggestion, all_players):
     print(f"\n--- Refuting Suggestion: {suggestion} ---")
@@ -53,4 +66,3 @@ def refute_suggestion(suggester, suggestion, all_players):
 
     print("No one can refute this suggestion.")
     return None
-
