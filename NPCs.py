@@ -16,12 +16,13 @@ class NPC(Player):
     def roll_and_set_steps(self, mansion):
         self.remaining_steps = mansion.roll_dice()
 
-    def move(self, mansion):  
+    def move(self, new_room, mansion):
         current_location = self.current_coordinates or mansion.get_room_coordinates(self.current_room)
         reachable, unreachable = mansion.get_reachable_and_unreachable_rooms(current_location, self.remaining_steps)
 
         unexplored_rooms = [room for room in reachable if room not in [note.get("room") for note in self.notebook]]
 
+    # Prioritize unexplored rooms
         target_room = None
         for note in self.notebook:
             if note.get("type") == "suggestion" and not note.get("refuted"):
@@ -41,6 +42,7 @@ class NPC(Player):
             super().move(target_room, mansion)
         else:
             print(f"{self.name} cannot move this turn.")
+
 
     def make_suggestion(self, characters, weapons):
         if self.current_room:
